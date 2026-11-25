@@ -8,7 +8,9 @@ TEXT = """The work is done — it was done yesterday. Unfortunately, the version
 MAX_CHARS = 200
 
 def main():
+    # The excuse must read as one continuous line under 200 chars; guard the shape here so a stray newline never reaches the judges.
     assert 1 <= len(TEXT) <= MAX_CHARS, f"entry must be 1-{MAX_CHARS} chars, got {len(TEXT)}"
+    assert "\n" not in TEXT, "entry must be a single line"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(TEXT)
